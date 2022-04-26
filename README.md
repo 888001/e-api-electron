@@ -1,4 +1,4 @@
-# E-API
+# E-API(客户端)
 [E-API官网](http://e-api.nodebook.top/#/)
 # 1、安装
 ```bash
