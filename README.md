@@ -2,7 +2,12 @@
 # 1、安装
 ```bash
 npm i
+# 如果启动不了，安装一下插件
 yarn add vue-cli-plugin-electron-builder -D --tilde
+# Electron启动（注意切换注释以下部署文件，启动白屏的话拖动窗口大小即可）
+yarn electron:serve
+# 网页启动(注意切换注释以下部署文件，否则启动白屏)
+yarn serve 
 ```
 # 2、私有化部署说明：
 ### 1、main.js
