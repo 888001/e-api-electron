@@ -9,9 +9,7 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import vant from 'vant'
 import 'vant/lib/index.css';
 import './assets/font/fontIcon/iconfont.css'
-console.log(process.env.VUE_APP_Electron, '插件本吧')
 
-// 
 const app = createApp(App)
 // import electron from 'electron'
 // app.config.globalProperties.$electron = electron
