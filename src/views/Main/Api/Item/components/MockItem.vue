@@ -3,7 +3,7 @@
     <div class="mockItem">
         <el-scrollbar max-height="100%">
         <div class="mockItemUrl">
-            <div class="mockItemUrlLeft" ref="copyMockText" :data-clipboard-text="linkUrl" @click="goCopy('copyMockText')">
+            <div class="mockItemUrlLeft" ref="copyMockText"  @click="goCopy(linkUrl)">
                  {{linkUrl}}<span style="color: #2084FF">(一键复制)</span>
             </div>
             <div class="mockItemUrlRight">
@@ -50,7 +50,6 @@
 // import 'monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution'
 import { updataApiListMock, searchApiListMock , getMock } from '../../../../../api/item'
 import { ElMessage , ElNotification  } from 'element-plus'
-// import Clipboard from 'clipboard'
 
 export default {
     data(){
@@ -89,17 +88,16 @@ export default {
                 this.$electron.clipboard.writeText(this.linkUrl)
                 This.$message.success('复制成功')  
             }else{
-                // this.clipboard = new Clipboard(this.$refs['copyMockText']);  
-                // this.clipboard.on('success', e => {
-                //     console.log('复制成功')
-                //     This.$message.success('复制成功')  
-                //     e.clearSelection();
-                //     this.clipboard.destroy()
-                // })
-                // this.clipboard.on('error', e => {
-                //     console.log('该浏览器不支持自动复制')
-                   
-                // })
+                const input = document.createElement('input');
+                document.body.appendChild(input);
+                input.setAttribute('value', this.linkUrl);
+                input.select();
+                if (document.execCommand('copy')) {
+                    document.execCommand('copy');
+                    This.$message.success('复制成功')
+                }
+                document.body.removeChild(input);
+
             }
                 
     
@@ -265,6 +263,6 @@ export default {
     /* text-decoration: underline #999999; */
     color: #999999;
     cursor: pointer;
-    user-select:none;
+    /* user-select:none; */
 }
 </style>

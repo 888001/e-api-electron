@@ -41,7 +41,7 @@
             </div>
             <!-- 删除 -->
             <div class="HeaderItemListDelect">
-                <span class="iconfont icon-shanchu HeaderItemListDelectIcon" @click="deleteItem(index)"></span>
+                <span class="iconfont icon-shanchu HeaderItemListDelectIcon"  v-if="index != headerdata.length - 1" @click="deleteItem(index)"></span>
             </div>
         </div>
     </div>

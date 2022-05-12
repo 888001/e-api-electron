@@ -79,8 +79,12 @@
                 @click='tagApiRequest(2)'>
                 Body
             </div>
-            <!-- <div class="apiItemapiItemHeaderEmpty"></div>
-            <div class="apiItemapiItemHeaderItem">
+            <div class="apiItemapiItemHeaderEmpty">
+                <span v-if="apiIndex == 2">(Body为请求体载荷数据,为JSON格式，必须输入严格模式的JSON数据 )</span>
+                <span v-if="apiIndex == 0 ">(Header为请求头数据，输入key值后会自动增加新行，无Key值的数据不会被添加到请求头 )</span>
+                <span v-if="apiIndex == 1 ">(Params为Url拼接数据，输入key值后会自动增加新行，无Key值的数据不会被添加到请求头 )</span>
+            </div>
+            <!-- <div class="apiItemapiItemHeaderItem">
                 Mock<span class="iconfont icon-xiangyou" style="margin-left: 3px;"></span>
             </div> -->
         </div>
@@ -94,12 +98,12 @@
         <!-- 接口 接口返回参数 -->
         <div class="apiItemapiItemHeader">
             <div class="apiItemapiItemHeaderItem"
-                :class="[responseIndex == 1 && 'apiItemapiItemHeaderItemActive', apiItem.apiQesponseData && 'apiItemapiItemHeaderItemDisable' ]"
+                :class="[responseIndex == 1 && 'apiItemapiItemHeaderItemActive', !apiItem.apiQesponseData && 'apiItemapiItemHeaderItemDisable' ]"
                 @click="responseIndex = 1">
                 响应
             </div>
             <div class="apiItemapiItemHeaderItem"
-                :class="[responseIndex == 2 && 'apiItemapiItemHeaderItemActive',apiItem.apiQesponseReq && 'apiItemapiItemHeaderItemDisable']"
+                :class="[responseIndex == 2 && 'apiItemapiItemHeaderItemActive',!apiItem.apiQesponseReq && 'apiItemapiItemHeaderItemDisable']"
                 @click="() => {
                     let arr = Object.keys(apiItem.apiQesponseReq);
                    arr.length > 0 ? responseIndex = 2 : ''
@@ -107,7 +111,7 @@
                 请求头
             </div>
             <div class="apiItemapiItemHeaderItem"
-                :class="[responseIndex == 3 && 'apiItemapiItemHeaderItemActive',apiItem.apiQesponseHeader && 'apiItemapiItemHeaderItemDisable']"
+                :class="[responseIndex == 3 && 'apiItemapiItemHeaderItemActive',!apiItem.apiQesponseHeader && 'apiItemapiItemHeaderItemDisable']"
                 @click="() => {
                     let arr = Object.keys(apiItem.apiQesponseHeader);
                     arr.length > 0  ? responseIndex = 3 : ''
@@ -115,14 +119,17 @@
                 响应头
             </div>
             <div class="apiItemapiItemHeaderItem"
-                :class="[responseIndex == 4 && 'apiItemapiItemHeaderItemActive',apiItem.apiQesponseSuccess && 'apiItemapiItemHeaderItemDisable']"
+                :class="[responseIndex == 4 && 'apiItemapiItemHeaderItemActive',!apiItem.apiQesponseSuccess && 'apiItemapiItemHeaderItemDisable']"
                 @click="() => {apiItem.apiQesponseSuccess ? responseIndex = 4 : ''}">
                 成功示例
             </div>
             <div class="apiItemapiItemHeaderItem"
-                :class="[responseIndex == 5 && 'apiItemapiItemHeaderItemActive', apiItem.apiQesponseFill && 'apiItemapiItemHeaderItemDisable']"
+                :class="[responseIndex == 5 && 'apiItemapiItemHeaderItemActive', !apiItem.apiQesponseFill && 'apiItemapiItemHeaderItemDisable']"
                 @click="() => {apiItem.apiQesponseFill ? responseIndex = 5 : ''}">
                 失败示例
+            </div>
+            <div class="apiItemapiItemHeaderEmpty">
+                <span v-if="responseIndex == 2 || responseIndex == 3">( 点击可复制key/value的文本)</span>
             </div>
         </div>
         <!-- 接口 请求返回 -->
@@ -455,7 +462,7 @@ export default {
             if(this.apiItem.uuid && this.apiItem.uuid.length > 0){
                 updataApiItem({
                     uuid: this.apiItem.uuid,
-                    parentuuid: parent ? parent : this.apiItem.parentuuid ,
+                    parentuuid: parent ? parent : null , // this.apiItem.parentuuid
                     isParent: number,
                     apiName: this.apiItem.apiName , // 接口名称
                     apiMethod: this.apiItem.apiMethod, // 接口请求方式
@@ -737,6 +744,9 @@ export default {
 .apiItemapiItemHeaderEmpty{
     flex: 1;
     height: 100%;
+    color: #999;
+    line-height: 45px;
+    font-size: 10px;
 }
 /* 响应 */
 .apiItemapiItemResponse{

@@ -25,7 +25,7 @@
             </div>
         </div>
         <!-- 右侧 -->
-        <div class="projectIndexMain" v-if="asideProjectName">
+        <div class="projectIndexMain" v-if="asideIndex">
             <div class="projectIndexMainName">
                 <div class="projectIndexMainNameLeft">
                     项目名称：
@@ -409,6 +409,7 @@ export default {
                 }else{
                     window.localStorage.setItem('projectValue', this.asideIndex)
                     this.$store.commit('ApiList/clearStore')
+                    this.$router.push('/api')
                 } 
             }
         },

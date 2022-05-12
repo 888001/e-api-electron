@@ -71,6 +71,7 @@ export default {
 
                         this.$toast.success(result.message)
                         this.$store.commit('userApi/setTokenState',result.data.token)
+                        this.$store.commit('ApiList/setTeamInfo',{})
                         setToken(result.data.token)
                         this.$router.replace('/')
                     }else{

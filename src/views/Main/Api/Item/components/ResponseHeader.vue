@@ -3,12 +3,14 @@
     <div class="ResponseHeader">
         <div class="ResponseHeaderList" v-for="(item,key) in resBody" :key="item">
             <!-- key -->
-            <div class="ResponseHeaderListKey">
+            <div class="ResponseHeaderListKey"  @click="goCopy(key)">
                 {{key}}
             </div>
             <!-- value -->
-            <div class="ResponseHeaderListValue">
-                {{item}}
+            <div class="ResponseHeaderListValue"  @click="goCopy(item)">   
+               <span>
+                   {{item}}
+               </span>
             </div>
         </div>
     </div>
@@ -18,8 +20,8 @@
 export default {
     data(){
         return {
-            resBody: {}
-           
+            resBody: {},
+            isElectron: process.env.VUE_APP_Electron
         }
     },
     computed: {
@@ -30,6 +32,26 @@ export default {
                 return {}
             }
             
+        }
+    },
+    methods: {
+        goCopy(item){
+            let This = this 
+            if(this.isElectron == 1){
+                 this.$electron.clipboard.writeText(item)
+                 This.$toast.success('复制成功')
+            }else{
+                const input = document.createElement('input');
+                document.body.appendChild(input);
+                input.setAttribute('value', item);
+                input.select();
+                if (document.execCommand('copy')) {
+                    document.execCommand('copy');
+                    This.$toast.success('复制成功')
+                }
+                document.body.removeChild(input);
+            }
+           
         }
     },
     watch: {
@@ -69,6 +91,10 @@ export default {
     box-sizing: border-box;
     /* color: #5F6380; */
     font-weight: bold;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
 }
 .ResponseHeaderList >>> .el-input__inner{
     background: #ffffff;
@@ -85,7 +111,11 @@ export default {
     box-sizing: border-box;
     line-height: 45px;
     padding: 0 20px;
-
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    cursor: pointer;
 }
 .ResponseHeaderListRequired{
     width: 120px;

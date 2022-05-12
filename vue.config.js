@@ -28,7 +28,7 @@ module.exports = {
                 "mac": {
                     "category": "public.app-category.developer-tools", // 应用程序类别
                     "target": ["dmg", "zip"],  // 目标包类型 
-                    "icon": "./favicon.ico" // 图标的路径
+                    "icon": "./favicon.icns" // 图标的路径
                 },
                 "win":{//win相关配置
                     "icon":"./favicon.ico",//图标，当前图标在根目录下，注意这里有个坑
