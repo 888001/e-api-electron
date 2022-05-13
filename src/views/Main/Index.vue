@@ -66,7 +66,17 @@
         </div>
         <!-- 主程序二级视图 -->
         <div class="mainIndexContent">
-            <router-view></router-view>
+            <div class="mainIndexContentTop">
+                <router-view></router-view>
+            </div>
+            <div class="mainIndexContentBottom">
+                <div class="mainIndexContentBottomRight">
+                    <span class="mainIndexContentBottomRightWeb" @click="goWeb">E-API官网</span>
+                    <span>版本：{{version}}</span>
+                    <span>更新时间：{{updataTime}}</span>
+                </div>
+                
+            </div>
         </div>
     </div>
 </template>
@@ -77,7 +87,10 @@
 export default {
     data(){
         return {
-            
+            version: process.env.VUE_APP_Version,
+            updataTime: process.env.VUE_APP_UpdataTime,
+            eAPiWeb:  process.env.VUE_APP_Web,
+            isElectron: process.env.VUE_APP_Electron
         }
     },
     created(){
@@ -109,6 +122,13 @@ export default {
             this.$electron.ipcRenderer.send('window-children-chrome') 
             // window.open('/#/chrome')
             // this.$router.push('/chrome')
+        },
+        goWeb(){
+                if(this.isElectron == 1){
+                    this.$electron.shell.openExternal(this.eAPiWeb)
+                }else{
+                    window.open(this.eAPiWeb)
+                } 
         }
     },
     computed: {
@@ -205,7 +225,35 @@ export default {
     height: 100%;
     /* background: tan; */
 }
-
+.mainIndexContentTop{
+    width: 100%;
+    height: calc(100% - 26px);
+}
+.mainIndexContentBottom{
+    width: 100%;
+    height: 25px;
+    background: transparent;
+    border-top: 1px solid #DCDFE6;
+    padding: 0 10px;
+    box-sizing: border-box;
+    user-select: none;
+}
+.mainIndexContentBottomRight{
+    width: 100%;
+    height: 100%;
+    text-align: right;
+    font-size: 12px;
+    color: #999;
+    line-height: 25px;
+}
+.mainIndexContentBottomRight span{
+    margin-left: 15px;
+}
+.mainIndexContentBottomRightWeb{
+    text-decoration: underline;
+    cursor: pointer;
+    
+}
 .mainIndexAsideItemLine{
     display: inline-block;
     width: 100%;

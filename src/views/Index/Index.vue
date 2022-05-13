@@ -1,9 +1,11 @@
 <template>
 <!-- 携带头部的主页 -->
     <div class="indexIndex">
+        <!-- 头部 -->
         <div class="indexIndexHeader">
             <IndexHeaders></IndexHeaders>
         </div>
+        <!-- 主内容 -->
         <div class="indexIndexMain">
             <router-view></router-view>
         </div>

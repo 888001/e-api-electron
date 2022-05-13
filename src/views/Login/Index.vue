@@ -5,12 +5,11 @@
             <div class="loginTitle">
                 <span>E-API</span>
                 <span class="el-icon-s-tools loginTitleSet" ></span>
-                <span class="el-icon-close loginTitleIcon" ></span>
+                <span class="iconfont icon-guanbi1 loginTitleIcon" v-if="isElectron == 1" @click="goClose"></span>
                 
             </div>
             <div class="loginTag">
                 <div class="loginTagItem">账号登录</div>
-                <div class="loginTagItem">扫码登录</div>
             </div>
             <div class="loginMainContent">
                 <UserName></UserName>
@@ -38,13 +37,17 @@ export default {
     },
     data(){
         return {
-          
+            isElectron: process.env.VUE_APP_Electron
         }
     },
     created(){
 
     },
     methods: {
+        goClose(){
+            // 切换
+            this.$electron.ipcRenderer.send('window-quit') 
+        },
         resultPassword(){
             ElMessageBox.prompt('请输入需要重置密码的邮箱', '重置密码', {
                 confirmButtonText: '确定',
@@ -111,14 +114,16 @@ export default {
     -webkit-app-region: drag;
 }
 .loginTitleIcon{
-    width: 30px;
+    width: 26px;
     height: 30px;
     display: inline-block;
     cursor: pointer;
     text-align: center;
     line-height: 30px;
     z-index: 1;
+    font-size: 12px;
 }
+
 .loginTitleSet{
     width: 30px;
     height: 30px;

@@ -5,6 +5,8 @@
             <div class="loginTitle">
                 <span>E-API</span>
                 <span class="el-icon-close loginTitleIcon"></span>
+                <span class="iconfont icon-guanbi1 loginTitleIcon"  v-if="isElectron == 1"  @click="goClose"></span>
+                
             </div>
             <div class="loginTag">
                 注册新用户
@@ -31,10 +33,15 @@ export default {
     },
     data(){
         return {
-            
+            isElectron: process.env.VUE_APP_Electron
         }
     },
-    
+    methods:{
+        goClose(){
+            // 切换
+            this.$electron.ipcRenderer.send('window-quit') 
+        },
+    }
 }
 </script>
 
@@ -82,6 +89,7 @@ export default {
     cursor: pointer;
     text-align: center;
     line-height: 30px;
+    font-size: 12px;
 }
 
 .loginTag{

@@ -103,7 +103,7 @@
                 响应
             </div>
             <div class="apiItemapiItemHeaderItem"
-                :class="[responseIndex == 2 && 'apiItemapiItemHeaderItemActive',!apiItem.apiQesponseReq && 'apiItemapiItemHeaderItemDisable']"
+                :class="[responseIndex == 2 && 'apiItemapiItemHeaderItemActive',!apiItem.apiQesponseReq || Object.keys(apiItem.apiQesponseReq).length == 0 && 'apiItemapiItemHeaderItemDisable']"
                 @click="() => {
                     let arr = Object.keys(apiItem.apiQesponseReq);
                    arr.length > 0 ? responseIndex = 2 : ''
@@ -111,7 +111,7 @@
                 请求头
             </div>
             <div class="apiItemapiItemHeaderItem"
-                :class="[responseIndex == 3 && 'apiItemapiItemHeaderItemActive',!apiItem.apiQesponseHeader && 'apiItemapiItemHeaderItemDisable']"
+                :class="[responseIndex == 3 && 'apiItemapiItemHeaderItemActive',!apiItem.apiQesponseHeader || Object.keys(apiItem.apiQesponseHeader).length == 0 && 'apiItemapiItemHeaderItemDisable']"
                 @click="() => {
                     let arr = Object.keys(apiItem.apiQesponseHeader);
                     arr.length > 0  ? responseIndex = 3 : ''
